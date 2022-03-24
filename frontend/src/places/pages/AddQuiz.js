@@ -1,12 +1,16 @@
 import React from "react";
 import Input from "../../shared/components/FormElements/Input";
-import "./AddQuiz";
+import "./AddQuiz.css";
 import { useForm } from "../../shared/hooks/form-hook";
 import {
     VALIDATOR_REQUIRE,
   } from "../../shared/utils/validators";
+  import { useHttpClient } from "../../shared/hooks/http-hook";
+  import { useHistory } from "react-router-dom";
+  import Button from "../../shared/components/FormElements/Button";
 
 const AddQuiz = () => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [formState, inputHandler] = useForm(
       {
         title: "",
@@ -33,12 +37,32 @@ const AddQuiz = () => {
       },
       false
     );
+    const history = useHistory();
 
-
+    const quizSubmitHandler = async (event) => {
+      event.preventDefault();
+      try {
+        await sendRequest(
+          "http://localhost:5000/api/quizzes",
+          "POST",
+          JSON.stringify({
+            title: formState.inputs.title.value,
+            questions: [{
+            question: formState.inputs.question.value,
+            optionA: formState.inputs.optionA.value,
+            optionB: formState.inputs.optionB.value,
+            answer: formState.inputs.answer.value,
+            }]
+          }),
+          { "Content-Type": "application/json" }
+        );
+        history.push("/");
+      } catch (err) {}
+    };
 
   return (
     <React.Fragment>
-      <form className="quiz-form">
+      <form className="quiz-form" onSubmit={quizSubmitHandler}>
       <Input
           id="title"
           element="input"
@@ -81,6 +105,9 @@ const AddQuiz = () => {
           errorText="Please enter a valid oanswer (at least 5 characters)."
           onInput={inputHandler}
         />
+        <Button type="submit">
+          ADD Question
+        </Button>
       </form>
     </React.Fragment>
   );
