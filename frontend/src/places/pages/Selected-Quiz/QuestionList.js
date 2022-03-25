@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Card from '../../shared/components/UIElements/Card';
-import QuizItem from './QuizItem';
+import Card from '../../../shared/components/UIElements/Card';
+import QuizItem from './QuestionItem';
 
-import './QuizSelected.css'
+import './QuestionList.css'
 
 const QuizSelected = props => {
   if (props.items.length === 0) {
@@ -17,7 +17,7 @@ const QuizSelected = props => {
   }
 
   return (
-    <ul className="quiz-list">
+    <ul className="place-list">
       {props.items.map(quiz => (
         <QuizItem
           key={quiz.id}

@@ -6,12 +6,12 @@ import {
   Switch,
 } from "react-router-dom";
 
-import QuizzesHome from "./places/pages/QuizzesHome";
-import AddQuiz from "./places/pages/AddQuiz";
+import QuizHomeList from "./places/pages/Quiz-Home-Page/QuizHomeList";
+import AddQuiz from "./places/pages/Add-quiz/AddQuiz";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Quiz from "./places/pages/Quiz";
+import SelectedQuiz from "./places/pages/Selected-Quiz/SelectedQuiz";
 import { AuthContext } from "./shared/context/auth-context";
-import Auth from "./places/pages/Auth";
+import Auth from "./places/pages/Login/Auth";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,42 +32,41 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <QuizzesHome />
+          <QuizHomeList />
         </Route>
         <Route path="/quizzes/new" exact>
           <AddQuiz />
         </Route>
         <Route path="/quizzes/:qid" exact>
-          <Quiz />
+          <SelectedQuiz />
         </Route>
         <Redirect to="/" />
       </Switch>
     );
-  } else if (isLoggedIn && role === 'view'){
+  } else if (isLoggedIn && role === "view") {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <QuizzesHome />
+          <QuizHomeList />
         </Route>
         <Route path="/quizzes/:qid" exact>
-          <Quiz />
+          <SelectedQuiz />
         </Route>
         <Redirect to="/" />
       </Switch>
-    )
-  }
-  else if (isLoggedIn && role === 'edit'){
+    );
+  } else if (isLoggedIn && role === "edit") {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <QuizzesHome />
+          <QuizHomeList />
         </Route>
         <Route path="/quizzes/:qid" exact>
-          <Quiz />
+          <SelectedQuiz />
         </Route>
         <Redirect to="/" />
       </Switch>
-    )
+    );
   } else {
     routes = (
       <Switch>
@@ -79,7 +78,7 @@ const App = () => {
         </Route>
         <Redirect to="/auth" />
       </Switch>
-    )
+    );
   }
   return (
     <AuthContext.Provider

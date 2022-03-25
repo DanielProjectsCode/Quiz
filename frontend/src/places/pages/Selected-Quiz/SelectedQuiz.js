@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./AddQuiz.css";
-import ErrorModal from '../../shared/components/UIElements/ErrorModal'
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
-import { useHttpClient } from '../../shared/hooks/http-hook';
-import QuizSelected from "./QuizSelected";
+import ErrorModal from '../../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner'
+import { useHttpClient } from '../../../shared/hooks/http-hook';
+import QuestionList from "./QuestionList";
 
-const Quiz = () => {
+const SelectedQuiz = () => {
   const [LoadedQuizzes, setLoadedQuizzes] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -33,10 +32,10 @@ const Quiz = () => {
         </div>
       )}
     {!isLoading && LoadedQuizzes &&(
-          <QuizSelected items={LoadedQuizzes} />
+          <QuestionList items={LoadedQuizzes} />
     )}
     </React.Fragment>
   );
 };
 
-export default Quiz;
+export default SelectedQuiz;

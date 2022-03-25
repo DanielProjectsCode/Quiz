@@ -1,11 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './QuizItem.css'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import Card from '../../shared/components/UIElements/Card';
+import Card from "../../../shared/components/UIElements/Card";
+import "./QuizItem.css";
 
-
-const QuizzesItem = props => {
+const QuizItem = props => {
   return (
     <li className="user-item">
       <Card className="user-item__content">
@@ -19,7 +18,7 @@ const QuizzesItem = props => {
   );
 };
 
-export default QuizzesItem;
+export default QuizItem;
 
 /*
   <ul className="quizzes-list">

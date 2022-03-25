@@ -1,7 +1,7 @@
 import React from 'react';
 
-import QuizzesItem from './QuizzesItem';
-import Card from '../../shared/components/UIElements/Card';
+import QuizItem from './QuizItem';
+import Card from '../../../shared/components/UIElements/Card';
 import './QuizList.css'
 
 
@@ -19,7 +19,7 @@ const QuizList = props => {
   return (
     <ul className="users-list">
       {props.items.map(user => (
-        <QuizzesItem
+        <QuizItem
           key={user.id}
           id={user.id}
           title={user.title}
