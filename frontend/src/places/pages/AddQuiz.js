@@ -8,6 +8,8 @@ import {
   import { useHttpClient } from "../../shared/hooks/http-hook";
   import { useHistory } from "react-router-dom";
   import Button from "../../shared/components/FormElements/Button";
+  import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+  import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
 const AddQuiz = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -62,7 +64,9 @@ const AddQuiz = () => {
 
   return (
     <React.Fragment>
-      <form className="quiz-form" onSubmit={quizSubmitHandler}>
+        <ErrorModal error={error} onClear={clearError} />
+      <form className="quiz-form">
+      {isLoading && <LoadingSpinner asOverlay />}
       <Input
           id="title"
           element="input"
@@ -107,6 +111,9 @@ const AddQuiz = () => {
         />
         <Button type="submit">
           ADD Question
+        </Button>
+        <Button type="submit" className='add-quiz' onClick={quizSubmitHandler}>
+          Finish Quiz
         </Button>
       </form>
     </React.Fragment>
