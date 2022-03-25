@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-import './AddQuiz.css'
+import "./AddQuiz.css";
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import QuizSelected from "./QuizSelected";
 
 const Quiz = () => {
-  const quizId = useParams().quizId;
-  const [loadedQuizes, setLoadedQuizzes] = useState([]);
-  useEffect(() => {
-    const sendRequest = async () => {
-      try {
-        const responseData = await fetch(`http://localhost:5000/api/quizzes/${quizId}`);
+  const [LoadedQuizzes, setLoadedQuizzes] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-        const responseString = await responseData.json();
-        setLoadedQuizzes(responseString.quizzes);
+  const quizId = useParams().quizId;
+
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/quizzes/${quizId}`
+        );
+        setLoadedQuizzes(responseData.quizzes);
       } catch (err) {}
     };
-    sendRequest();
-  }, [quizId]);
+    fetchQuizzes();
+  }, [sendRequest, quizId]);
 
   return (
     <React.Fragment>
-      <ul className="quizzes-list">
-          {loadedQuizes.map((i) => {
-            return (
-                  <div className='user-item__info'>
-                  {i.title}
-                  </div>
-            );
-          })}
-      </ul>
+
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+    {!isLoading && LoadedQuizzes &&(
+          <QuizSelected items={LoadedQuizzes} />
+    )}
     </React.Fragment>
   );
 };
