@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const QuizRoutes = require("./routes/Quiz-routes");
+const usersRoutes = require("./routes/users-routes.js");
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,10 +19,12 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/quizzes", QuizRoutes);
+app.use("/api/users", usersRoutes);
 
 mongoose
   .connect(
-    `mongodb+srv://CourseAccount:danielemma@cluster0.lf29q.mongodb.net/quizzes?retryWrites=true&w=majority`
+    `mongodb+srv://CourseAccount:danielemma@cluster0.lf29q.mongodb.net/quizzes?retryWrites=true&w=majority`,
+    { useNewUrlParser: true }
   )
   .then(() => {
     app.listen(5000);

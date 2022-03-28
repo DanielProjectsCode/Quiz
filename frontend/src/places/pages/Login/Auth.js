@@ -36,7 +36,7 @@ const Auth = () => {
     event.preventDefault();
       try {
         const responseData = await sendRequest(
-          'http://localhost:5000/api/quizzes/login',
+          'http://localhost:5000/api/users/login',
           'POST',
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -46,7 +46,8 @@ const Auth = () => {
             'Content-Type': 'application/json'
           }
         );
-        auth.login(responseData.user.id, responseData.user.role);
+        auth.login(responseData.userId, responseData.token, responseData.role);
+        console.log(responseData.role)
       } catch (err) {}
   };
 

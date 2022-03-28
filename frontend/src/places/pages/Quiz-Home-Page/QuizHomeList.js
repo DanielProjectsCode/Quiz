@@ -7,7 +7,7 @@ const QuizzesHome = () => {
   useEffect(() => {
     const sendRequest = async () => {
       try {
-        const responseData = await fetch("http://localhost:5000/api/quizzes");
+        const responseData = await fetch("http://localhost:5000/api/users");
 
         const responseString = await responseData.json();
         setLoadedQuizzes(responseString.quizzes);

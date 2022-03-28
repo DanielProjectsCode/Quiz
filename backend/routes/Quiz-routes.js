@@ -1,16 +1,17 @@
 const express = require("express");
 
 const quizzesControllers = require("../controllers/quiz-controllers");
+const checkAuth = require('../middleware/check-auth')
 
 const router = express.Router();
 
-router.post('/login', quizzesControllers.login)
+router.use(checkAuth)
 
-router.post("/", quizzesControllers.createQuiz);
+router.get("/:qid", quizzesControllers.getQuizzesById);
 
 router.get("/", quizzesControllers.getQuizzes);
 
-router.get("/:qid", quizzesControllers.getQuizzesById);
+router.post("/", quizzesControllers.createQuiz);
 
 
 module.exports = router;

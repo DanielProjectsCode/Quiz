@@ -1,42 +1,13 @@
 const { validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const HttpError = require("../models/http-error");
 const Quiz = require("../models/quiz");
-const User = require('../models/user');
-
-
-const login = async (req, res, next) => {
-  const { email, password } = req.body;
-
-  let existingUser;
-
-  try {
-    existingUser = await User.findOne({ email: email });
-  } catch (err) {
-    const error = new HttpError(
-      'Loggin in failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  if (!existingUser || existingUser.password !== password) {
-    const error = new HttpError(
-      'Invalid credentials, could not log you in.',
-      401
-    );
-    return next(error);
-  }
-
-  res.json({
-    message: 'Logged in!',
-    user: existingUser.toObject({ getters: true })
-  });
-};
+const User = require('../models/user')
 
 
 const getQuizzesById = async (req, res, next) => {
-
   const quizId = req.params.qid;
 
   let quiz;
@@ -44,7 +15,7 @@ const getQuizzesById = async (req, res, next) => {
     quiz = await Quiz.findById(quizId);
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find a quiz.",
+      `${err} Something went wrong, could not find a quiz.`,
       500
     );
     return next(error);
@@ -105,7 +76,4 @@ exports.createQuiz = createQuiz;
 exports.getQuizzes = getQuizzes;
 
 exports.getQuizzesById = getQuizzesById;
-
-exports.login = login;
-
 

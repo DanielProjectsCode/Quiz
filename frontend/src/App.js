@@ -14,21 +14,27 @@ import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./places/pages/Login/Auth";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState("");
+  const [userId, setUserId] = useState(false);
+  const [token, setToken] = useState(null);
+  const [role, setRole] = useState('');
 
-  const login = useCallback((uid, role) => {
-    setIsLoggedIn(true);
+  const login = useCallback((uid, token, role) => {
+    setToken(token);
     setRole(role);
+    setUserId(uid);
+    console.log(uid)
+    console.log(role)
   }, []);
 
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
+    setRole("")
+    setUserId(null)
   }, []);
 
   let routes;
 
-  if (isLoggedIn && role === "edit") {
+  if (token && role === 'edit') {
     routes = (
       <Switch>
         <Route path="/" exact>
@@ -37,31 +43,33 @@ const App = () => {
         <Route path="/quizzes/new" exact>
           <AddQuiz />
         </Route>
-        <Route path="/quizzes/:qid" exact>
+        <Route path="/quizzes/:quizId" exact>
           <SelectedQuiz />
         </Route>
         <Redirect to="/" />
       </Switch>
     );
-  } else if (isLoggedIn && role === "view") {
+  }
+  if (token && role === "view") {
     routes = (
       <Switch>
         <Route path="/" exact>
           <QuizHomeList />
         </Route>
-        <Route path="/quizzes/:qid" exact>
+        <Route path="/quizzes/:quizId" exact>
           <SelectedQuiz />
         </Route>
         <Redirect to="/" />
       </Switch>
     );
-  } else if (isLoggedIn && role === "edit") {
+  }
+  if (token && role === "restricted") {
     routes = (
       <Switch>
         <Route path="/" exact>
           <QuizHomeList />
         </Route>
-        <Route path="/quizzes/:qid" exact>
+        <Route path="/quizzes/:quizId" exact>
           <SelectedQuiz />
         </Route>
         <Redirect to="/" />
@@ -83,10 +91,12 @@ const App = () => {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: !!token,
+        token: token,
+        role: role,
+        userId: userId,
         login: login,
         logout: logout,
-        role: role,
       }}
     >
       <Router>

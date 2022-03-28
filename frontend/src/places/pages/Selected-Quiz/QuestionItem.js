@@ -3,8 +3,12 @@ import Card from "../../../shared/components/UIElements/Card";
 import "./QuestionItem.css";
 
 const QuestionItem = (props) => {
+
+
+
   return (
     <React.Fragment>
+      <h1>Hello</h1>
       <li className="place-item">
         <Card className="place-item__content">
           <div className="place-item__info">
