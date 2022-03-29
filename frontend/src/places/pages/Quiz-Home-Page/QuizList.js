@@ -17,7 +17,7 @@ const QuizList = props => {
   }
 
   return (
-    <ul className="users-list">
+    <ul className="quiz-list">
       {props.items.map(user => (
         <QuizItem
           key={user.id}
