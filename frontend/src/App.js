@@ -37,7 +37,7 @@ const App = () => {
         <Route path="/quizzes/new" exact>
           <AddQuiz />
         </Route>
-        <Route path="/quizzes/:qid" exact>
+        <Route path="/quizzes/:quizId" exact>
           <SelectedQuiz />
         </Route>
         <Redirect to="/" />
@@ -49,7 +49,7 @@ const App = () => {
         <Route path="/" exact>
           <QuizHomeList />
         </Route>
-        <Route path="/quizzes/:qid" exact>
+        <Route path="/quizzes/:quizId" exact>
           <SelectedQuiz />
         </Route>
         <Redirect to="/" />
@@ -61,7 +61,7 @@ const App = () => {
         <Route path="/" exact>
           <QuizHomeList />
         </Route>
-        <Route path="/quizzes/:qid" exact>
+        <Route path="/quizzes/:quizId" exact>
           <SelectedQuiz />
         </Route>
         <Redirect to="/" />

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal'
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner'
-import { useHttpClient } from '../../../shared/hooks/http-hook';
+import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner";
+import { useHttpClient } from "../../../shared/hooks/http-hook";
 import QuestionList from "./QuestionList";
 
 const SelectedQuiz = () => {
@@ -17,23 +17,28 @@ const SelectedQuiz = () => {
         const responseData = await sendRequest(
           `http://localhost:5000/api/quizzes/${quizId}`
         );
+        console.log(responseData);
         setLoadedQuizzes(responseData.quizzes);
-      } catch (err) {}
+      } catch (err) {
+      }
     };
     fetchQuizzes();
   }, [sendRequest, quizId]);
 
   return (
     <React.Fragment>
-
+      <ErrorModal error={error} onClear={clearError} />
       {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
       )}
-    {!isLoading && LoadedQuizzes &&(
-          <QuestionList items={LoadedQuizzes} />
-    )}
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && LoadedQuizzes && <QuestionList items={LoadedQuizzes} />}
     </React.Fragment>
   );
 };

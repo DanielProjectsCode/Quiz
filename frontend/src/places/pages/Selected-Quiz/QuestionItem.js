@@ -5,9 +5,9 @@ import "./QuestionItem.css";
 const QuestionItem = (props) => {
   return (
     <React.Fragment>
-      <li className="place-item">
-        <Card className="place-item__content">
-          <div className="place-item__info">
+      <li className="quiz-item">
+        <Card className="quiz-item__content">
+          <div className="quiz-item__info">
             <h1>{props.title}</h1>
           </div>
         </Card>

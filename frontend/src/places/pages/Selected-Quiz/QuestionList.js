@@ -8,23 +8,23 @@ import './QuestionList.css'
 const QuizSelected = props => {
   if (props.items.length === 0) {
     return (
-      <div className="place-list center">
+      <div className="quiz-list center">
         <Card>
-          <h2>No places found. Maybe create one?</h2>
+          <h2>No quizs found. Maybe create one?</h2>
         </Card>
       </div>
     );
   }
 
   return (
-    <ul className="place-list">
+    <ul className="quiz-list">
       {props.items.map(quiz => (
         <QuizItem
           key={quiz.id}
           id={quiz.id}
           title={quiz.title}
 
-         // description={place.description}
+         // description={quiz.description}
         />
       ))}
     </ul>

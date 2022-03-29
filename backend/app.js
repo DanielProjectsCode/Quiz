@@ -21,7 +21,7 @@ app.use("/api/quizzes", QuizRoutes);
 
 mongoose
   .connect(
-    `mongodb+srv://CourseAccount:danielemma@cluster0.lf29q.mongodb.net/quizzes?retryWrites=true&w=majority`
+    `mongodb+srv://CourseAccount:danielemma@cluster0.lf29q.mongodb.net/quizzes?retryWrites=true&w=majority`, { useNewUrlParser: true }
   )
   .then(() => {
     app.listen(5000);

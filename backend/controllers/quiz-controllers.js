@@ -36,13 +36,14 @@ const login = async (req, res, next) => {
 
 
 const getQuizzesById = async (req, res, next) => {
-
+  
   const quizId = req.params.qid;
 
   let quiz;
   try {
     quiz = await Quiz.findById(quizId);
   } catch (err) {
+    console.log(err)
     const error = new HttpError(
       "Something went wrong, could not find a quiz.",
       500
@@ -67,7 +68,7 @@ const getQuizzes = async (req, res, next) => {
     quizzes = await Quiz.find();
   } catch (err) {
     const error = new HttpError(
-      "Fetching quizes failed, please try again later.",
+      "Fetching quizzes failed, please try again later.",
       500
     );
     return next(error);
@@ -94,6 +95,7 @@ const createQuiz = async (req, res, next) => {
   try {
     await createdQuiz.save();
   } catch (err) {
+    console.log(err)
     const error = new HttpError("creating Quiz failed, please try again", 500);
     return next(error);
   }

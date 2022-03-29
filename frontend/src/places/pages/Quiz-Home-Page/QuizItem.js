@@ -19,21 +19,3 @@ const QuizItem = props => {
 };
 
 export default QuizItem;
-
-/*
-  <ul className="quizzes-list">
-            {loadedQuizes.map((i) => {
-              return (
-                <li className="user-item">
-                <Card className="user-item__content">
-                  <Link to="/quizzes/:qid">
-                    <div className='user-item__info'>
-                    {i.title}
-                    </div>
-                    </Link>
-                </Card>
-                </li>
-              );
-            })}
-        </ul>
-        */
